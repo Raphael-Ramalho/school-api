@@ -6,7 +6,10 @@
   "main": "server.ts",
   "scripts": {
     "build": "tsc",
-    "start": "tsx watch src/server.ts"
+    "start": "tsx watch src/server.ts",
+    "create:migration": "npx prisma migrate dev --name",
+    "reset:migrations": "prisma migrate reset",
+    "run:migrations": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
