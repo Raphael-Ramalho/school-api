@@ -1,4 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+import { PostRepositoryPrisma } from "../../../repository/prisma/post.repository.prisma.ts";
+import { prisma } from "../../../util/prisma.util.ts";
+import { PostServiceImplementation } from "../../../services/post/post.service.implementation.ts";
 
 export class PostController {
   public static build() {
@@ -26,9 +29,17 @@ export class PostController {
   ) {
     const { author, content, title } = request.body;
 
-    reply
-      .status(200)
-      .send({ response: `post created`, postData: { title, content, author } });
+    const aRepository = PostRepositoryPrisma.build(prisma);
+    const aService = PostServiceImplementation.build(aRepository);
+
+    const output = await aService.create(title, content, author);
+    const data = {
+      title: output.title,
+      content: output.content,
+      author: output.author,
+    };
+
+    reply.status(200).send(data);
   }
 
   public async editPost(
