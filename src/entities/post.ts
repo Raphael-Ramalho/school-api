@@ -1,12 +1,7 @@
-export type PostProps = {
-  id?: number;
-  title: string;
-  content: string;
-  author: string;
-};
+import { IPost } from "./post.types.ts";
 
 export class Post {
-  private constructor(readonly props: PostProps) {}
+  private constructor(readonly props: Partial<IPost>) {}
 
   public static create(title: string, content: string, author: string) {
     return new Post({ title, content, author });

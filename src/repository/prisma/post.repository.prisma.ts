@@ -1,7 +1,12 @@
 import { PrismaClient } from "@prisma/client/extension";
 import { PostRepository } from "../post.repository.ts";
 import { Post } from "../../entities/post.ts";
-import { CreateOutputDTO, ListOutputDTO } from "../../services/post/post.service.ts";
+import {
+  CreateOutputDTO,
+  ListOutputDTO,
+  UpdateOutputDTO,
+} from "../../services/post/post.service.ts";
+import { IPost } from "../../entities/post.types.ts";
 
 export class PostRepositoryPrisma implements PostRepository {
   private constructor(readonly prisma: PrismaClient) {}
@@ -20,28 +25,32 @@ export class PostRepositoryPrisma implements PostRepository {
     const output: CreateOutputDTO = await this.prisma.post.create({
       data,
     });
-    console.log({output})
+
     return output;
   }
 
-  public async update(post: Post): Promise<void> {
+  public async update(
+    postInfo: Partial<Omit<IPost, "id">> & Pick<IPost, "id">
+  ): Promise<UpdateOutputDTO> {
     const data = {
-      title: post.title,
-      content: post.content,
-      author: post.author,
+      title: postInfo.title,
+      content: postInfo.content,
+      author: postInfo.author,
     };
 
-    await this.prisma.post.update({
+    const output = await this.prisma.post.update({
       where: {
-        id: 1, //raphael - fix
+        id: postInfo.id,
       },
       data,
     });
+
+    return output;
   }
 
   public async list(): Promise<ListOutputDTO> {
-    const aList = await this.prisma.post.findMany()
-    console.log({aList})
+    const aList = await this.prisma.post.findMany();
+
     return aList;
   }
 

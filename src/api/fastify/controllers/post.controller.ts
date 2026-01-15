@@ -51,17 +51,26 @@ export class PostController {
   public async editPost(
     request: FastifyRequest<{
       Params: { postId: string };
-      Body: { title: string; content: string; author: string };
+      Body: { title?: string; content?: string; author?: string };
     }>,
     reply: FastifyReply
   ) {
     const { author, content, title } = request.body;
     const { postId } = request.params;
 
-    reply.status(200).send({
-      response: `post updated with id: ${postId}`,
-      postData: { title, content, author },
-    });
+    const aRepository = PostRepositoryPrisma.build(prisma);
+    const aService = PostServiceImplementation.build(aRepository);
+
+    const output = await aService.update(postId, title, content, author);
+
+    const data = {
+      id: output.id,
+      title: output.title,
+      content: output.content,
+      author: output.author,
+    }
+
+    reply.status(200).send(data);
   }
 
   public async deletePost(

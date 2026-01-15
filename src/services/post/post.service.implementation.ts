@@ -1,6 +1,12 @@
 import { Post } from "../../entities/post.ts";
+import { IPost } from "../../entities/post.types.ts";
 import { PostRepository } from "../../repository/post.repository.ts";
-import { CreateOutputDTO, ListOutputDTO, PostService } from "./post.service.ts";
+import {
+  CreateOutputDTO,
+  ListOutputDTO,
+  PostService,
+  UpdateOutputDTO,
+} from "./post.service.ts";
 
 export class PostServiceImplementation implements PostService {
   private constructor(readonly repository: PostRepository) {}
@@ -30,6 +36,19 @@ export class PostServiceImplementation implements PostService {
       content: p.content,
       author: p.author,
     }));
+
+    return output;
+  }
+
+  public async update(
+    id: string,
+    title?: string,
+    content?: string,
+    author?: string
+  ): Promise<UpdateOutputDTO> {
+    const post = { id: Number(id), title, content, author };
+
+    const output = await this.repository.update(post);
 
     return output;
   }
