@@ -9,7 +9,12 @@ export class PostController {
   }
 
   public async getAllPosts(request: FastifyRequest, reply: FastifyReply) {
-    reply.status(200).send({ response: "posts list" });
+    const aRepository = PostRepositoryPrisma.build(prisma);
+    const aService = PostServiceImplementation.build(aRepository);
+
+    const output = await aService.list();
+
+    reply.status(200).send(output);
   }
 
   public async getPost(
@@ -34,6 +39,7 @@ export class PostController {
 
     const output = await aService.create(title, content, author);
     const data = {
+      id: output.id,
       title: output.title,
       content: output.content,
       author: output.author,

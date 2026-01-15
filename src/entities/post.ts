@@ -1,4 +1,5 @@
 export type PostProps = {
+  id?: number;
   title: string;
   content: string;
   author: string;
@@ -9,6 +10,10 @@ export class Post {
 
   public static create(title: string, content: string, author: string) {
     return new Post({ title, content, author });
+  }
+
+  public get id() {
+    return this.props.id;
   }
 
   public get title() {

@@ -15,28 +15,21 @@ export class PostServiceImplementation implements PostService {
     author: string
   ): Promise<CreateOutputDTO> {
     const aPost = Post.create(title, content, author);
-    await this.repository.save(aPost);
 
-    const output: CreateOutputDTO = {
-      title,
-      content,
-      author,
-    };
+    const output = await this.repository.save(aPost);
 
     return output;
   }
 
   public async list(): Promise<ListOutputDTO> {
     const aPost = await this.repository.list();
-    const posts = aPost.map((p) => ({
+
+    const output: ListOutputDTO = aPost.map((p) => ({
+      id: p.id,
       title: p.title,
       content: p.content,
       author: p.author,
     }));
-
-    const output: ListOutputDTO = {
-      posts,
-    };
 
     return output;
   }
