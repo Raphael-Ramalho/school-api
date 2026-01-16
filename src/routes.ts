@@ -1,9 +1,4 @@
-import {
-  FastifyInstance,
-  FastifyPluginOptions,
-  FastifyRequest,
-  FastifyReply,
-} from "fastify";
+import { FastifyInstance } from "fastify";
 import { PostController } from "./api/fastify/controllers/post.controller.ts";
 
 export async function routes(fastify: FastifyInstance) {
@@ -22,5 +17,5 @@ export async function routes(fastify: FastifyInstance) {
     postController.deletePost.bind(postController)
   );
 
-  fastify.get("/posts/search", postController.findPost.bind(postController));
+  fastify.get("/posts/search", postController.searchPost.bind(postController));
 }

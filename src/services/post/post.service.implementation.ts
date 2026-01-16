@@ -3,8 +3,10 @@ import { IPost } from "../../entities/post.types.ts";
 import { PostRepository } from "../../repository/post.repository.ts";
 import {
   CreateOutputDTO,
+  FindOutputDTO,
   ListOutputDTO,
   PostService,
+  SearchOutputDTO,
   UpdateOutputDTO,
 } from "./post.service.ts";
 
@@ -51,5 +53,25 @@ export class PostServiceImplementation implements PostService {
     const output = await this.repository.update(post);
 
     return output;
+  }
+
+  public async find(id: string): Promise<FindOutputDTO> {
+    const postId = Number(id);
+
+    const output = await this.repository.find(postId);
+
+    return output;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const postId = Number(id);
+
+    await this.repository.delete(postId);
+  }
+
+  public async search(query: string): Promise<SearchOutputDTO> {
+    const output = await this.repository.search(query);
+
+    return output
   }
 }

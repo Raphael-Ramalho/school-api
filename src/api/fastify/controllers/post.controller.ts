@@ -25,7 +25,13 @@ export class PostController {
   ) {
     const { postId } = request.params;
 
-    reply.status(200).send({ response: `returning post with id: ${postId}` });
+    const output = await this.postService.find(postId);
+
+    if (!output) {
+      reply.status(404).send({ error: "post not found" });
+    } else {
+      reply.status(200).send(output);
+    }
   }
 
   public async createPost(
@@ -80,17 +86,26 @@ export class PostController {
   ) {
     const { postId } = request.params;
 
-    reply.status(200).send({ response: `deleted post with id: ${postId}` });
+    await this.postService.delete(postId);
+
+    reply.status(200).send(`deleted post with id: ${postId}`);
   }
 
-  public async findPost(
+  public async searchPost(
     request: FastifyRequest<{ Querystring: { find: string } }>,
     reply: FastifyReply
   ) {
     const { find } = request.query;
 
-    reply
-      .status(200)
-      .send({ response: `searched for post with text fragment: ${find}` });
+    const output = await this.postService.search(find);
+
+    const data = output.map((post) => ({
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      author: post.author,
+    }));
+
+    reply.status(200).send(data);
   }
 }

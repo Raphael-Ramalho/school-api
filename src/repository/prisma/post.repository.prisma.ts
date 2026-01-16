@@ -5,6 +5,8 @@ import {
   CreateOutputDTO,
   ListOutputDTO,
   UpdateOutputDTO,
+  FindOutputDTO,
+  SearchOutputDTO,
 } from "../../services/post/post.service.ts";
 import { IPost } from "../../entities/post.types.ts";
 
@@ -54,11 +56,38 @@ export class PostRepositoryPrisma implements PostRepository {
     return aList;
   }
 
-  public async find(id: string): Promise<Post | null> {
+  public async find(id: number): Promise<FindOutputDTO> {
     const aPost = await this.prisma.post.findUnique({ where: { id } });
 
     if (!aPost) return null;
 
-    return aPost; //raphael - fix
+    return aPost;
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.prisma.post.delete({ where: { id } });
+  }
+
+  public async search(query: string): Promise<SearchOutputDTO> {
+    const aPost = await this.prisma.post.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+            },
+          },
+          {
+            content: {
+              contains: query,
+            },
+          },
+        ],
+      },
+    });
+
+    if (!aPost) return null;
+
+    return aPost;
   }
 }
