@@ -4,15 +4,17 @@ import { prisma } from "../../../util/prisma.util.ts";
 import { PostServiceImplementation } from "../../../services/post/post.service.implementation.ts";
 
 export class PostController {
-  public static build() {
-    return new PostController();
-  }
+  public constructor(private readonly postService: PostServiceImplementation) {}
 
-  public async getAllPosts(_request: FastifyRequest, reply: FastifyReply) {
+  public static build() {
     const aRepository = PostRepositoryPrisma.build(prisma);
     const aService = PostServiceImplementation.build(aRepository);
 
-    const output = await aService.list();
+    return new PostController(aService);
+  }
+
+  public async getAllPosts(_request: FastifyRequest, reply: FastifyReply) {
+    const output = await this.postService.list();
 
     reply.status(200).send(output);
   }
@@ -34,10 +36,7 @@ export class PostController {
   ) {
     const { author, content, title } = request.body;
 
-    const aRepository = PostRepositoryPrisma.build(prisma);
-    const aService = PostServiceImplementation.build(aRepository);
-
-    const output = await aService.create(title, content, author);
+    const output = await this.postService.create(title, content, author);
     const data = {
       id: output.id,
       title: output.title,
@@ -58,17 +57,19 @@ export class PostController {
     const { author, content, title } = request.body;
     const { postId } = request.params;
 
-    const aRepository = PostRepositoryPrisma.build(prisma);
-    const aService = PostServiceImplementation.build(aRepository);
-
-    const output = await aService.update(postId, title, content, author);
+    const output = await this.postService.update(
+      postId,
+      title,
+      content,
+      author
+    );
 
     const data = {
       id: output.id,
       title: output.title,
       content: output.content,
       author: output.author,
-    }
+    };
 
     reply.status(200).send(data);
   }
