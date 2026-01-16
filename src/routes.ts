@@ -7,8 +7,7 @@ import {
 import { PostController } from "./api/fastify/controllers/post.controller.ts";
 
 export async function routes(
-  fastify: FastifyInstance,
-  options: FastifyPluginOptions
+  fastify: FastifyInstance
 ) {
   const postController = PostController.build();
 

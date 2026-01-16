@@ -8,7 +8,7 @@ export class PostController {
     return new PostController();
   }
 
-  public async getAllPosts(request: FastifyRequest, reply: FastifyReply) {
+  public async getAllPosts(_request: FastifyRequest, reply: FastifyReply) {
     const aRepository = PostRepositoryPrisma.build(prisma);
     const aService = PostServiceImplementation.build(aRepository);
 
