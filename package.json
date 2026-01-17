@@ -9,7 +9,11 @@
     "start": "tsx watch src/server.ts",
     "create:migration": "npx prisma migrate dev --name",
     "reset:migrations": "prisma migrate reset",
-    "run:migrations": "npx prisma generate"
+    "run:migrations": "npx prisma generate",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -26,9 +30,13 @@
   "devDependencies": {
     "@types/node": "25.0.3",
     "@types/pg": "8.16.0",
+    "@vitest/coverage-v8": "^4.0.17",
+    "@vitest/ui": "^4.0.17",
     "nodemon": "3.1.11",
     "prisma": "7.2.0",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.0.17",
+    "vitest-mock-extended": "^3.1.0"
   }
 }
