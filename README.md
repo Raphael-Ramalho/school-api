@@ -7,7 +7,7 @@ Servidor para gerenciamento e persistência de posts escolares
 Sistema node construido com a arquitetura MVC e as seguintes tecnologias:
 <li>Fastify -> Gerenciamento de rotas
 <li>PostgreSQL -> Banco de dados relacional SQL
-<li>Prisma -> Interação com banco de dados
+<li>Prisma -> ORM para interação com banco de dados
 <li>Vitest -> Criação de testes unitários
 
 ## 📋 Etapas para execução do projeto:
