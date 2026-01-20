@@ -1,15 +1,14 @@
 # 🏫 School-api
 
-Servidor Node para gerenciamento de posts escolares
+Servidor para gerenciamento e persistência de posts escolares
 
-## 🛠️ Construido com:
+## 🛠️ Arquitetura:
 
-<li>Node
-<li>Fastify
-<li>Prisma
-<li>PostgreSQL
-<li>Vitest
-<li>Docker
+Sistema node construido com a arquitetura MVC e as seguintes tecnologias:
+<li>Fastify -> Gerenciamento de rotas
+<li>PostgreSQL -> Banco de dados relacional SQL
+<li>Prisma -> Interação com banco de dados
+<li>Vitest -> Criação de testes unitários
 
 ## 📋 Etapas para execução do projeto:
 
