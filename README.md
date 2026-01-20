@@ -3,6 +3,7 @@
 Servidor Node para gerenciamento de posts escolares
 
 ## 🛠️ Construido com:
+
 <li>Node
 <li>Fastify
 <li>Prisma
@@ -10,13 +11,15 @@ Servidor Node para gerenciamento de posts escolares
 <li>Vitest
 <li>Docker
 
-## 📋 Etapas para execução do projeto: 
+## 📋 Etapas para execução do projeto:
 
 ### Setup inicial:
 
 <li> Certifique-se de ter feito as seguintes instalações:
-- node v20.19.6
-- docker
+    <ul>
+        <li>node v20.19.6</li>
+        <li>docker</li>
+    </ul>
 
 <li> Com o docker aberto, monte as imagens:
 
@@ -36,10 +39,8 @@ Servidor Node para gerenciamento de posts escolares
 
     yarn start
 
-
 ### Visualizar rotas e suas especificações:
 
 <li> Com o servidor rodando, acesse a rota:
 
     http://localhost:3030/swagger#/
-
