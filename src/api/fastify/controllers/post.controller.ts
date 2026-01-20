@@ -13,12 +13,26 @@ export class PostController {
     return new PostController(aService);
   }
 
+  /**
+   * Lista todos os posts cadastrados no sistema.
+   *
+   * @param {FastifyRequest} _request - Objeto da requisição.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async getAllPosts(_request: FastifyRequest, reply: FastifyReply) {
     const output = await this.postService.list();
 
     reply.status(200).send(output);
   }
 
+  /**
+   * Busca um post específico pelo seu identificador único.
+   *
+   * @param {FastifyRequest<{ Params: { postId: string } }>} request - Objeto da requisição contendo o ID no parâmetro.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async getPost(
     request: FastifyRequest<{ Params: { postId: string } }>,
     reply: FastifyReply
@@ -34,6 +48,13 @@ export class PostController {
     }
   }
 
+  /**
+   * Cria um novo post no sistema.
+   *
+   * @param {FastifyRequest<{ Body: { title: string; content: string; author: string } }>} request - Objeto da requisição contendo os dados do post.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async createPost(
     request: FastifyRequest<{
       Body: { title: string; content: string; author: string };
@@ -53,6 +74,13 @@ export class PostController {
     reply.status(200).send(data);
   }
 
+  /**
+   * Atualiza os dados de um post existente.
+   *
+   * @param {FastifyRequest<{ Params: { postId: string }; Body: { title?: string; content?: string; author?: string } }>} request - Objeto da requisição com o ID e novos dados.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async editPost(
     request: FastifyRequest<{
       Params: { postId: string };
@@ -80,6 +108,13 @@ export class PostController {
     reply.status(200).send(data);
   }
 
+  /**
+   * Remove um post do sistema pelo seu identificador único.
+   *
+   * @param {FastifyRequest<{ Params: { postId: string } }>} request - Objeto da requisição contendo o ID no parâmetro.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async deletePost(
     request: FastifyRequest<{ Params: { postId: string } }>,
     reply: FastifyReply
@@ -91,6 +126,13 @@ export class PostController {
     reply.status(200).send(`deleted post with id: ${postId}`);
   }
 
+  /**
+   * Realiza uma busca textual nos posts (título ou conteúdo).
+   *
+   * @param {FastifyRequest<{ Querystring: { find: string } }>} request - Objeto da requisição contendo o termo de busca.
+   * @param {FastifyReply} reply - Objeto da resposta.
+   * @returns {Promise<void>}
+   */
   public async searchPost(
     request: FastifyRequest<{ Querystring: { find: string } }>,
     reply: FastifyReply
