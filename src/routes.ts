@@ -7,7 +7,7 @@ import {
   getPostSchema,
   listPostsSchema,
   searchPostSchema,
-} from "./api/fastify/schemas/post.schema.ts";
+} from "./api/fastify/swagger/post.schema.ts";
 
 export async function routes(fastify: FastifyInstance) {
   const postController = PostController.build();

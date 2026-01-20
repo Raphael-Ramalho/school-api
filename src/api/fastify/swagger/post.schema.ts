@@ -1,8 +1,3 @@
-/**
- * Definições de Schema para a entidade Post.
- * Utilizado para documentação automática via Swagger/OpenAPI.
- */
-
 const postProperties = {
   id: { type: "number" },
   title: { type: "string" },
@@ -11,7 +6,7 @@ const postProperties = {
 };
 
 export const listPostsSchema = {
-  description: "Lista todos os posts",
+  summary: "Lista todos os posts",
   tags: ["Posts"],
   response: {
     200: {
@@ -25,7 +20,7 @@ export const listPostsSchema = {
 };
 
 export const getPostSchema = {
-  description: "Obtém um post pelo ID",
+  summary: "Obtém um post pelo ID",
   tags: ["Posts"],
   params: {
     type: "object",
@@ -48,7 +43,7 @@ export const getPostSchema = {
 };
 
 export const createPostSchema = {
-  description: "Cria um novo post",
+  summary: "Cria um novo post",
   tags: ["Posts"],
   body: {
     type: "object",
@@ -68,7 +63,7 @@ export const createPostSchema = {
 };
 
 export const editPostSchema = {
-  description: "Edita um post existente",
+  summary: "Edita um post existente",
   tags: ["Posts"],
   params: {
     type: "object",
@@ -79,7 +74,7 @@ export const editPostSchema = {
   body: {
     type: "object",
     properties: {
-      title: { type: "string" },
+      title: { type: "string"  },
       content: { type: "string" },
       author: { type: "string" },
     },
@@ -93,7 +88,7 @@ export const editPostSchema = {
 };
 
 export const deletePostSchema = {
-  description: "Exclui um post",
+  summary: "Exclui um post",
   tags: ["Posts"],
   params: {
     type: "object",
@@ -107,7 +102,7 @@ export const deletePostSchema = {
 };
 
 export const searchPostSchema = {
-  description: "Pesquisa posts por conteúdo ou título",
+  summary: "Pesquisa posts por conteúdo ou título",
   tags: ["Posts"],
   querystring: {
     type: "object",
