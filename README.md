@@ -1,8 +1,8 @@
-# school-api
+# 🏫 School-api
 
 Servidor Node para gerenciamento de posts escolares
 
-# 🛠️ Construido com:
+## 🛠️ Construido com:
 <li>Node
 <li>Fastify
 <li>Prisma
@@ -10,7 +10,7 @@ Servidor Node para gerenciamento de posts escolares
 <li>Vitest
 <li>Docker
 
-# 📋 Etapas para execução do projeto: 
+## 📋 Etapas para execução do projeto: 
 
 ### Setup inicial:
 
@@ -37,7 +37,7 @@ Servidor Node para gerenciamento de posts escolares
     yarn start
 
 
-### Visualizar rotas e suas especificações
+### Visualizar rotas e suas especificações:
 
 <li> Com o servidor rodando, acesse a rota:
 
