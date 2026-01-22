@@ -28,9 +28,9 @@ Sistema node construido com a arquitetura MVC e as seguintes tecnologias:
 
     yarn install
 
-<li> Rode as migrações:
+<li> Resete as migrações:
 
-    yarn run:migrations
+    yarn reset:migrations
 
 ### Execução:
 
