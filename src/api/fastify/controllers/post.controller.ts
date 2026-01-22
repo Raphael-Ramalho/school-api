@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { PostRepositoryPrisma } from "../../../repository/prisma/post.repository.prisma.ts";
-import { prisma } from "../../../util/prisma.util.ts";
-import { PostServiceImplementation } from "../../../services/post/post.service.implementation.ts";
+import { PostRepositoryPrisma } from "@/repository/prisma/post.repository.prisma.js";
+import { prisma } from "@/util/prisma.util.js";
+import { PostServiceImplementation } from "@/services/post/post.service.implementation.js";
 
 export class PostController {
   public constructor(private readonly postService: PostServiceImplementation) {}
@@ -21,7 +21,7 @@ export class PostController {
 
   public async getPost(
     request: FastifyRequest<{ Params: { postId: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { postId } = request.params;
 
@@ -38,7 +38,7 @@ export class PostController {
     request: FastifyRequest<{
       Body: { title: string; content: string; author: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { author, content, title } = request.body;
 
@@ -58,7 +58,7 @@ export class PostController {
       Params: { postId: string };
       Body: { title?: string; content?: string; author?: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { author, content, title } = request.body;
     const { postId } = request.params;
@@ -67,7 +67,7 @@ export class PostController {
       postId,
       title,
       content,
-      author
+      author,
     );
 
     const data = {
@@ -82,7 +82,7 @@ export class PostController {
 
   public async deletePost(
     request: FastifyRequest<{ Params: { postId: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { postId } = request.params;
 
@@ -93,7 +93,7 @@ export class PostController {
 
   public async searchPost(
     request: FastifyRequest<{ Querystring: { find: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { find } = request.query;
 

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { PostServiceImplementation } from "../../services/post/post.service.implementation.ts";
-import { PostRepository } from "../../repository/post.repository.ts";
-import { IPost } from "../../entities/post.types.ts";
+import { PostServiceImplementation } from "@/services/post/post.service.implementation.js";
+import { PostRepository } from "@/repository/post.repository.js";
+import { IPost } from "@/entities/post.types.js";
 
 describe("PostServiceImplementation", () => {
   let postService: PostServiceImplementation;
@@ -42,7 +42,7 @@ describe("PostServiceImplementation", () => {
           title,
           content,
           author,
-        })
+        }),
       );
       expect(result).toEqual(expectedOutput);
     });
@@ -115,7 +115,7 @@ describe("PostServiceImplementation", () => {
       await postService.update(id, "Title", "Content", "Author");
 
       expect(mockRepository.update).toHaveBeenCalledWith(
-        expect.objectContaining({ id: 42 })
+        expect.objectContaining({ id: 42 }),
       );
     });
   });

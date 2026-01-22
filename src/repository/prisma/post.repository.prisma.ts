@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client/extension";
-import { PostRepository } from "../post.repository.ts";
-import { Post } from "../../entities/post.ts";
+import { PostRepository } from "@/repository/post.repository.js";
+import { Post } from "@/entities/post.js";
 import {
   CreateOutputDTO,
   ListOutputDTO,
   UpdateOutputDTO,
   FindOutputDTO,
   SearchOutputDTO,
-} from "../../services/post/post.service.ts";
-import { IPost } from "../../entities/post.types.ts";
+} from "@/services/post/post.service.js";
+import { IPost } from "@/entities/post.types.js";
 
 export class PostRepositoryPrisma implements PostRepository {
   private constructor(readonly prisma: PrismaClient) {}
@@ -32,7 +32,7 @@ export class PostRepositoryPrisma implements PostRepository {
   }
 
   public async update(
-    postInfo: Partial<Omit<IPost, "id">> & Pick<IPost, "id">
+    postInfo: Partial<Omit<IPost, "id">> & Pick<IPost, "id">,
   ): Promise<UpdateOutputDTO> {
     const data = {
       title: postInfo.title,

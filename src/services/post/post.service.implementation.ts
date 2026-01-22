@@ -1,6 +1,6 @@
-import { Post } from "../../entities/post.ts";
-import { IPost } from "../../entities/post.types.ts";
-import { PostRepository } from "../../repository/post.repository.ts";
+import { Post } from "@/entities/post.js";
+import { IPost } from "@/entities/post.types.js";
+import { PostRepository } from "@/repository/post.repository.js";
 import {
   CreateOutputDTO,
   FindOutputDTO,
@@ -8,7 +8,7 @@ import {
   PostService,
   SearchOutputDTO,
   UpdateOutputDTO,
-} from "./post.service.ts";
+} from "@/services/post/post.service.js";
 
 export class PostServiceImplementation implements PostService {
   private constructor(readonly repository: PostRepository) {}
@@ -20,7 +20,7 @@ export class PostServiceImplementation implements PostService {
   public async create(
     title: string,
     content: string,
-    author: string
+    author: string,
   ): Promise<CreateOutputDTO> {
     const aPost = Post.create(title, content, author);
 
@@ -46,7 +46,7 @@ export class PostServiceImplementation implements PostService {
     id: string,
     title?: string,
     content?: string,
-    author?: string
+    author?: string,
   ): Promise<UpdateOutputDTO> {
     const post = { id: Number(id), title, content, author };
 
@@ -72,6 +72,6 @@ export class PostServiceImplementation implements PostService {
   public async search(query: string): Promise<SearchOutputDTO> {
     const output = await this.repository.search(query);
 
-    return output
+    return output;
   }
 }

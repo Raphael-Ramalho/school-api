@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Post } from "./post.ts";
+import { Post } from "@/entities/post.js";
 
 describe("Post Entity", () => {
   describe("create", () => {

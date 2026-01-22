@@ -1,4 +1,4 @@
-import { IPost } from "./post.types.ts";
+import { IPost } from "@/entities/post.types.js";
 
 export class Post {
   private constructor(readonly props: Partial<IPost>) {}

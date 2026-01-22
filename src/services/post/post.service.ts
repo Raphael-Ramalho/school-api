@@ -1,4 +1,4 @@
-import { IPost } from "../../entities/post.types.ts";
+import { IPost } from "@/entities/post.types.js";
 
 export type CreateOutputDTO = IPost;
 
@@ -14,7 +14,7 @@ export interface PostService {
   create(
     title: string,
     content: string,
-    author: string
+    author: string,
   ): Promise<CreateOutputDTO>;
 
   list(): Promise<ListOutputDTO>;
@@ -23,7 +23,7 @@ export interface PostService {
     id: string,
     title?: string,
     content?: string,
-    author?: string
+    author?: string,
   ): Promise<UpdateOutputDTO>;
 
   find(id: string): Promise<FindOutputDTO>;

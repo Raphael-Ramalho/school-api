@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { PostController } from "./api/fastify/controllers/post.controller.ts";
+import { PostController } from "@/api/fastify/controllers/post.controller.js";
 import {
   createPostSchema,
   deletePostSchema,
@@ -7,7 +7,7 @@ import {
   getPostSchema,
   listPostsSchema,
   searchPostSchema,
-} from "./api/fastify/swagger/post.schema.ts";
+} from "@/api/fastify/swagger/post.schema.js";
 
 export async function routes(fastify: FastifyInstance) {
   const postController = PostController.build();
@@ -15,36 +15,36 @@ export async function routes(fastify: FastifyInstance) {
   fastify.get(
     "/posts",
     { schema: listPostsSchema },
-    postController.getAllPosts.bind(postController)
+    postController.getAllPosts.bind(postController),
   );
 
   fastify.get(
     "/posts/:postId",
     { schema: getPostSchema },
-    postController.getPost.bind(postController)
+    postController.getPost.bind(postController),
   );
 
   fastify.post(
     "/posts",
     { schema: createPostSchema },
-    postController.createPost.bind(postController)
+    postController.createPost.bind(postController),
   );
 
   fastify.put(
     "/posts/:postId",
     { schema: editPostSchema },
-    postController.editPost.bind(postController)
+    postController.editPost.bind(postController),
   );
 
   fastify.delete(
     "/posts/:postId",
     { schema: deletePostSchema },
-    postController.deletePost.bind(postController)
+    postController.deletePost.bind(postController),
   );
 
   fastify.get(
     "/posts/search",
     { schema: searchPostSchema },
-    postController.searchPost.bind(postController)
+    postController.searchPost.bind(postController),
   );
 }
