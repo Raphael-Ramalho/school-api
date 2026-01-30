@@ -1,5 +1,4 @@
 import Fastify from "fastify";
-/* import redis from "redis"; */
 import "polyfill.js";
 import cors from "@fastify/cors";
 import fastifyRedis from "@fastify/redis";
