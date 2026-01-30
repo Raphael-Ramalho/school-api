@@ -2,15 +2,19 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { PostRepositoryPrisma } from "@/repository/prisma/post.repository.prisma.js";
 import { prisma } from "@/util/prisma.util.js";
 import { PostServiceImplementation } from "@/services/post/post.service.implementation.js";
+import { FastifyRedis } from "@fastify/redis";
 
 export class PostController {
-  public constructor(private readonly postService: PostServiceImplementation) {}
+  public constructor(
+    private readonly postService: PostServiceImplementation,
+    private readonly redisClient: FastifyRedis,
+  ) {}
 
-  public static build() {
+  public static build(redis: FastifyRedis) {
     const aRepository = PostRepositoryPrisma.build(prisma);
     const aService = PostServiceImplementation.build(aRepository);
 
-    return new PostController(aService);
+    return new PostController(aService, redis);
   }
 
   public async getAllPosts(_request: FastifyRequest, reply: FastifyReply) {
@@ -97,7 +101,20 @@ export class PostController {
   ) {
     const { find } = request.query;
 
-    const output = await this.postService.search(find);
+    let output = null;
+
+    const key = "search: " + find.toLowerCase();
+    const value = await this.redisClient.get(key);
+
+    if (value) {
+      output = JSON.parse(value);
+      console.log("Cache hit");
+    } else {
+      output = await this.postService.search(find);
+      console.log({output})
+      await this.redisClient.set(key, JSON.stringify(output), "EX", 500);
+      console.log("Cache miss");
+    }
 
     const data = output.map((post) => ({
       id: post.id,

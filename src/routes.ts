@@ -10,7 +10,8 @@ import {
 } from "@/api/fastify/swagger/post.schema.js";
 
 export async function routes(fastify: FastifyInstance) {
-  const postController = PostController.build();
+  const { redis } = fastify;
+  const postController = PostController.build(redis);
 
   fastify.get(
     "/posts",
