@@ -1,0 +1,11 @@
+config:
+  target: "http://localhost:3030"
+  phases:
+    - duration: 60
+      arrivalRate: 10
+  
+scenarios:
+  - name: "test"
+    flow:
+      - get:
+          url: "/posts/search?find=this"
