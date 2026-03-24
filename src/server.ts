@@ -16,7 +16,10 @@ const redisPort = 6379;
 const app = Fastify({ logger: true });
 const start = async () => {
   try {
-    await app.register(cors);
+    await app.register(cors, {
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    });
 
     await app.register(swagger, swaggerConfig);
     await app.register(swaggerUi, swaggerUiConfig);
